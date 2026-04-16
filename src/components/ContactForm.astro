@@ -116,6 +116,33 @@ const isHebrew = lang === 'he';
         ></textarea>
       </div>
 
+      <!-- Privacy Consent -->
+      <div class="flex items-start gap-3">
+        <input
+          type="checkbox"
+          id="consent"
+          name="consent"
+          required
+          class="mt-1 w-4 h-4 rounded border-earth-300 text-terracotta focus:ring-terracotta/30 accent-terracotta"
+        />
+        <label for="consent" class="text-sm text-earth-700 leading-relaxed">
+          {isHebrew ? (
+            <>
+              אני מאשר/ת כי קראתי את{' '}
+              <a href="/privacy" class="text-terracotta underline hover:text-terracotta/80">מדיניות הפרטיות</a>{' '}
+              ומסכים/ה לאיסוף ושימוש בפרטיי כמתואר בה. אני מבין/ה שהמידע שלי ישמש אך ורק לצורך הטיפול בפנייתי.
+            </>
+          ) : (
+            <>
+              I confirm that I have read the{' '}
+              <a href="/en/privacy" class="text-terracotta underline hover:text-terracotta/80">Privacy Policy</a>{' '}
+              and agree to the collection and use of my information as described. I understand my data will only be used to process my inquiry.
+            </>
+          )}
+          <span class="text-terracotta">*</span>
+        </label>
+      </div>
+
       <button
         type="submit"
         class="w-full bg-earth-900 text-white font-semibold py-3.5 rounded-xl hover:bg-earth-700 transition-colors"
