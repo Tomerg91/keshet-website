@@ -1,0 +1,70 @@
+---
+interface Props {
+  lang?: 'he' | 'en';
+  donateUrl?: string;
+}
+
+const { lang = 'he', donateUrl = '#' } = Astro.props;
+const isHebrew = lang === 'he';
+---
+
+<footer class="bg-earth-900 text-earth-100 relative grain">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+      <!-- Brand -->
+      <div>
+        <h3 class="text-2xl font-bold text-white font-heebo mb-4">חוות קשת</h3>
+        <p class="text-earth-300 leading-relaxed">
+          {isHebrew
+            ? 'כי הדרך הביתה עוברת דרך הנשימה.'
+            : 'Because the way home is through the breath.'}
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-lg font-semibold text-white mb-4">
+          {isHebrew ? 'ניווט מהיר' : 'Quick Links'}
+        </h4>
+        <nav class="flex flex-col gap-2">
+          {isHebrew ? (
+            <>
+              <a href="#story" class="text-earth-300 hover:text-white transition-colors">הסיפור שלנו</a>
+              <a href="#protocol" class="text-earth-300 hover:text-white transition-colors">פרוטוקול קשת</a>
+              <a href="#community" class="text-earth-300 hover:text-white transition-colors">הקהילה</a>
+              <a href="#contact" class="text-earth-300 hover:text-white transition-colors">צרו קשר</a>
+            </>
+          ) : (
+            <>
+              <a href="#about" class="text-earth-300 hover:text-white transition-colors">About Us</a>
+              <a href="#impact" class="text-earth-300 hover:text-white transition-colors">Our Impact</a>
+              <a href="#contact" class="text-earth-300 hover:text-white transition-colors">Contact</a>
+            </>
+          )}
+        </nav>
+      </div>
+
+      <!-- Contact & Donate -->
+      <div>
+        <h4 class="text-lg font-semibold text-white mb-4">
+          {isHebrew ? 'צרו קשר' : 'Get in Touch'}
+        </h4>
+        <div class="flex flex-col gap-2 text-earth-300 mb-6">
+          <span>keshetranch.com</span>
+        </div>
+        <a
+          href={donateUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block bg-terracotta text-white font-semibold px-6 py-3 rounded-full hover:bg-terracotta/90 transition-colors"
+        >
+          {isHebrew ? 'תרמו עכשיו' : 'Donate Now'}
+        </a>
+      </div>
+    </div>
+
+    <div class="border-t border-earth-700 mt-10 pt-8 text-center text-earth-300 text-sm">
+      <p>&copy; {new Date().getFullYear()} חוות קשת — Keshet Ranch. {isHebrew ? 'כל הזכויות שמורות.' : 'All rights reserved.'}</p>
+    </div>
+  </div>
+</footer>

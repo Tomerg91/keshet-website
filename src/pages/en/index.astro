@@ -1,0 +1,90 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Hero from '../../components/Hero.astro';
+import Impact from '../../components/Impact.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import DonateButton from '../../components/DonateButton.astro';
+import Footer from '../../components/Footer.astro';
+
+const donateUrl = '#'; // Replace with external donation platform URL
+---
+
+<Layout
+  title="Keshet Ranch — Restoring Sovereignty to the Soul"
+  description="A community rehabilitation center for post-traumatic soldiers in Israel. Support healing through breath, community, and nature."
+  lang="en"
+  dir="ltr"
+>
+  <Header lang="en" donateUrl={donateUrl} />
+  <main>
+    <Hero lang="en" />
+
+    <!-- About Section -->
+    <section id="about" class="relative py-16 sm:py-24 bg-earth-100 grain">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="fade-in text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-earth-900 mb-6">
+            About Keshet Ranch
+          </h2>
+        </div>
+
+        <div class="fade-in space-y-6 text-lg text-earth-700 leading-relaxed">
+          <p>
+            Keshet Ranch was founded to provide a home, community, and practical tools for those dealing with post-trauma. We believe that true healing comes from <strong class="text-earth-900">transitioning from dependence to independence</strong>.
+          </p>
+
+          <p>
+            The ranch was born from the journey of <strong class="text-earth-900">Guy Chandler</strong>, a combat veteran who experienced a chain of traumas from a young age through his military service. After being labeled a "hopeless case" by the mental health system, Guy refused to accept the verdict. He embarked on deep research and discovered the power of <strong class="text-earth-900">therapeutic breathing, nervous system regulation, and therapeutic massage</strong>.
+          </p>
+
+          <p>
+            Understanding that no one should go through this hell alone — especially in light of the needs after October 7th — Guy initiated the establishment of Keshet Ranch to transform personal knowledge into collective healing.
+          </p>
+        </div>
+
+        <div class="fade-in mt-10">
+          <h3 class="text-2xl font-bold text-earth-900 mb-6">The Keshet Protocol</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-sand rounded-xl p-5">
+              <h4 class="font-bold text-earth-900 mb-2">Sympathetic Release</h4>
+              <p class="text-earth-700 text-sm">Teaching the body to recognize and exit the fight-or-flight survival loop independently.</p>
+            </div>
+            <div class="bg-sand rounded-xl p-5">
+              <h4 class="font-bold text-earth-900 mb-2">Parasympathetic Activation</h4>
+              <p class="text-earth-700 text-sm">Unique breathing techniques that return the body to rest, digestion, and cell-building states.</p>
+            </div>
+            <div class="bg-sand rounded-xl p-5">
+              <h4 class="font-bold text-earth-900 mb-2">HeartMath Biofeedback</h4>
+              <p class="text-earth-700 text-sm">Real-time visual feedback of nervous system state accelerates learning and healing.</p>
+            </div>
+            <div class="bg-sand rounded-xl p-5">
+              <h4 class="font-bold text-earth-900 mb-2">Nature & Animals</h4>
+              <p class="text-earth-700 text-sm">Research shows that connection to nature and animals significantly accelerates healing processes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Impact lang="en" />
+
+    <!-- Donate CTA -->
+    <section class="relative py-16 sm:py-24 bg-sand grain">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="fade-in">
+          <h2 class="text-3xl sm:text-4xl font-bold text-earth-900 mb-4">
+            Support Keshet Ranch
+          </h2>
+          <p class="text-lg text-earth-700 mb-8 leading-relaxed">
+            Your donation helps combat veterans and trauma survivors reclaim their lives through community, breathing techniques, and nature-based healing.
+          </p>
+          <DonateButton url={donateUrl} lang="en" size="lg" />
+        </div>
+      </div>
+    </section>
+
+    <ContactForm lang="en" />
+  </main>
+  <Footer lang="en" donateUrl={donateUrl} />
+</Layout>

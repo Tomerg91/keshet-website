@@ -1,0 +1,27 @@
+---
+interface Props {
+  url?: string;
+  lang?: 'he' | 'en';
+  size?: 'sm' | 'lg';
+}
+
+const { url = '#', lang = 'he', size = 'lg' } = Astro.props;
+const isHebrew = lang === 'he';
+const label = isHebrew ? 'תרמו עכשיו' : 'Donate Now';
+
+const sizeClasses = size === 'lg'
+  ? 'text-lg px-10 py-4'
+  : 'text-sm px-6 py-2';
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={[
+    'inline-block bg-terracotta text-white font-bold rounded-full hover:bg-terracotta/90 hover:scale-105 transition-all shadow-lg shadow-terracotta/20',
+    sizeClasses,
+  ]}
+>
+  {label}
+</a>

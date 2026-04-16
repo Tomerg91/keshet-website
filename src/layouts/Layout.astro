@@ -1,0 +1,106 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: 'he' | 'en';
+  dir?: 'rtl' | 'ltr';
+}
+
+const {
+  title,
+  description = 'חוות קשת - מרכז שיקומי-קהילתי לנפגעי פוסט-טראומה',
+  lang = 'he',
+  dir = 'rtl',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang} dir={dir}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+  </head>
+  <body class="bg-sand text-earth-700 antialiased">
+    <slot />
+    <script>
+      // Fade-in on scroll observer
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      );
+      document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+      // Count-up animation
+      const countObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const el = entry.target as HTMLElement;
+              const target = parseInt(el.dataset.target || '0');
+              const suffix = el.dataset.suffix || '';
+              const prefix = el.dataset.prefix || '';
+              let current = 0;
+              const step = Math.max(1, Math.floor(target / 60));
+              const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                  current = target;
+                  clearInterval(timer);
+                }
+                el.textContent = prefix + current.toLocaleString() + suffix;
+              }, 20);
+              countObserver.unobserve(el);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      document.querySelectorAll('.count-up').forEach((el) => countObserver.observe(el));
+
+      // Header scroll behavior
+      const header = document.getElementById('site-header');
+      if (header) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 50) {
+            header.classList.add('bg-sand/95', 'backdrop-blur-sm', 'shadow-sm');
+            header.classList.remove('bg-transparent');
+          } else {
+            header.classList.remove('bg-sand/95', 'backdrop-blur-sm', 'shadow-sm');
+            header.classList.add('bg-transparent');
+          }
+        });
+      }
+
+      // Mobile menu toggle
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+        mobileMenu.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

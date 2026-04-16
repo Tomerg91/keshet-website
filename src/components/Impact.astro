@@ -1,0 +1,91 @@
+---
+interface Props {
+  lang?: 'he' | 'en';
+}
+
+const { lang = 'he' } = Astro.props;
+const isHebrew = lang === 'he';
+---
+
+<section id="impact" class="relative py-16 sm:py-24 bg-earth-100 grain">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="fade-in text-center mb-12 sm:mb-16">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-earth-900 mb-4 font-heebo">
+        {isHebrew ? 'מדדי הצלחה' : 'Our Impact'}
+      </h2>
+      <p class="text-lg sm:text-xl text-earth-700 max-w-3xl mx-auto leading-relaxed">
+        {isHebrew
+          ? 'היעילות המוכחת של הכלים בחוות קשת'
+          : 'Proven effectiveness of the Keshet Ranch tools'}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+      <!-- Stat 1 -->
+      <div class="fade-in bg-sand rounded-2xl p-8 text-center shadow-sm">
+        <div
+          class="count-up text-5xl sm:text-6xl font-black text-terracotta mb-3"
+          data-target="90"
+          data-suffix="%"
+        >
+          0%
+        </div>
+        <p class="text-earth-700 text-lg leading-relaxed">
+          {isHebrew
+            ? 'מהמשתתפים מדווחים על יכולת לווסת חרדה באופן עצמאי בתוך פחות מחודש'
+            : 'of participants report self-regulating anxiety within one month'}
+        </p>
+      </div>
+
+      <!-- Stat 2 -->
+      <div class="fade-in bg-sand rounded-2xl p-8 text-center shadow-sm">
+        <div
+          class="count-up text-5xl sm:text-6xl font-black text-earth-500 mb-3"
+          data-target="96"
+        >
+          0
+        </div>
+        <p class="text-earth-700 text-lg leading-relaxed">
+          {isHebrew
+            ? 'משתתפי דיור מוגן בשנה — 21 ימי שיקום לכל אחד'
+            : 'residential participants per year — 21-day rehabilitation each'}
+        </p>
+      </div>
+
+      <!-- Stat 3 -->
+      <div class="fade-in bg-sand rounded-2xl p-8 text-center shadow-sm">
+        <div
+          class="count-up text-5xl sm:text-6xl font-black text-sage-600 mb-3"
+          data-target="6750"
+        >
+          0
+        </div>
+        <p class="text-earth-700 text-lg leading-relaxed">
+          {isHebrew
+            ? 'משתתפי סדנאות, קורסים וטיפולים בקליניקה בשנה'
+            : 'workshop, course, and clinic participants per year'}
+        </p>
+      </div>
+    </div>
+
+    <!-- Research backing -->
+    {isHebrew && (
+      <div class="fade-in mt-12 max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="bg-sand rounded-2xl p-6 shadow-sm">
+            <h4 class="text-lg font-bold text-earth-900 mb-2 font-heebo">נשימה וויסות עצבי</h4>
+            <p class="text-earth-700 leading-relaxed text-sm">
+              מחקרים ב-Harvard Medical School מראים כי תרגול נשימה פארה-סימפטטית מפחית רמות קורטיזול בשיעור של עד 30% בתוך דקות ספורות.
+            </p>
+          </div>
+          <div class="bg-sand rounded-2xl p-6 shadow-sm">
+            <h4 class="text-lg font-bold text-earth-900 mb-2 font-heebo">טכנולוגיית HeartMath</h4>
+            <p class="text-earth-700 leading-relaxed text-sm">
+              טכנולוגיית קוהרנטיות הלב נמצאה יעילה בהפחתת תסמיני PTSD ב-75% מהמקרים בתוך 3 חודשי תרגול.
+            </p>
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+</section>

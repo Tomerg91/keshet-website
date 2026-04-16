@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-earth-900: #3D2B1F;
+  --color-earth-700: #5C4033;
+  --color-earth-500: #8B6914;
+  --color-earth-300: #C4A35A;
+  --color-earth-100: #F5F0E8;
+  --color-sage-600: #5F7161;
+  --color-sage-300: #A3B8A0;
+  --color-terracotta: #C17B4A;
+  --color-sand: #FAF6F0;
+
+  --font-heebo: 'Heebo', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+/* Grain texture overlay */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* RTL base styles */
+[dir="rtl"] {
+  font-family: var(--font-heebo);
+}
+
+[dir="ltr"] {
+  font-family: var(--font-inter);
+}
+
+/* Count-up animation placeholder */
+.count-up {
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,176 @@
+---
+interface Props {
+  lang?: 'he' | 'en';
+}
+
+const { lang = 'he' } = Astro.props;
+const isHebrew = lang === 'he';
+---
+
+<section id="contact" class="relative py-16 sm:py-24 bg-earth-100 grain">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="fade-in text-center mb-10 sm:mb-12">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-earth-900 mb-4 font-heebo">
+        {isHebrew ? 'צרו קשר' : 'Get in Touch'}
+      </h2>
+      <p class="text-lg text-earth-700">
+        {isHebrew
+          ? 'להצטרפות, תמיכה או שיתופי פעולה'
+          : 'For joining, support, or partnerships'}
+      </p>
+    </div>
+
+    <form
+      id="contact-form"
+      class="fade-in bg-sand rounded-2xl p-6 sm:p-8 shadow-sm space-y-5"
+    >
+      <!-- Honeypot -->
+      <div class="hidden" aria-hidden="true">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div>
+          <label for="name" class="block text-sm font-medium text-earth-900 mb-1.5">
+            {isHebrew ? 'שם מלא' : 'Full Name'} <span class="text-terracotta">*</span>
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full px-4 py-3 rounded-xl border border-earth-300/50 bg-white text-earth-900 placeholder:text-earth-300 focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
+            placeholder={isHebrew ? 'השם שלך' : 'Your name'}
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-earth-900 mb-1.5">
+            {isHebrew ? 'אימייל' : 'Email'} <span class="text-terracotta">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full px-4 py-3 rounded-xl border border-earth-300/50 bg-white text-earth-900 placeholder:text-earth-300 focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
+            placeholder={isHebrew ? 'your@email.com' : 'your@email.com'}
+          />
+        </div>
+      </div>
+
+      <div>
+        <label for="phone" class="block text-sm font-medium text-earth-900 mb-1.5">
+          {isHebrew ? 'טלפון' : 'Phone'}
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          class="w-full px-4 py-3 rounded-xl border border-earth-300/50 bg-white text-earth-900 placeholder:text-earth-300 focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
+          placeholder={isHebrew ? '050-000-0000' : '+1 (555) 000-0000'}
+        />
+      </div>
+
+      <div>
+        <label for="interest" class="block text-sm font-medium text-earth-900 mb-1.5">
+          {isHebrew ? 'תחום עניין' : 'Interest'}
+        </label>
+        <select
+          id="interest"
+          name="interest"
+          class="w-full px-4 py-3 rounded-xl border border-earth-300/50 bg-white text-earth-900 focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors"
+        >
+          {isHebrew ? (
+            <>
+              <option value="">בחרו תחום</option>
+              <option value="join">הצטרפות לתוכנית</option>
+              <option value="volunteer">התנדבות</option>
+              <option value="donate">תרומה</option>
+              <option value="partner">שיתוף פעולה</option>
+              <option value="other">אחר</option>
+            </>
+          ) : (
+            <>
+              <option value="">Select interest</option>
+              <option value="join">Join a program</option>
+              <option value="volunteer">Volunteer</option>
+              <option value="donate">Donate</option>
+              <option value="partner">Partnership</option>
+              <option value="other">Other</option>
+            </>
+          )}
+        </select>
+      </div>
+
+      <div>
+        <label for="message" class="block text-sm font-medium text-earth-900 mb-1.5">
+          {isHebrew ? 'הודעה' : 'Message'}
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          rows="4"
+          class="w-full px-4 py-3 rounded-xl border border-earth-300/50 bg-white text-earth-900 placeholder:text-earth-300 focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta transition-colors resize-none"
+          placeholder={isHebrew ? 'ספרו לנו קצת...' : 'Tell us a bit more...'}
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-earth-900 text-white font-semibold py-3.5 rounded-xl hover:bg-earth-700 transition-colors"
+      >
+        {isHebrew ? 'שליחה' : 'Send Message'}
+      </button>
+
+      <div id="form-status" class="text-center text-sm hidden"></div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const status = document.getElementById('form-status') as HTMLElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    // Check honeypot
+    if (formData.get('website')) return;
+
+    const data = Object.fromEntries(formData);
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = '...';
+    submitBtn.disabled = true;
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      status.classList.remove('hidden');
+      if (res.ok) {
+        status.textContent = document.documentElement.lang === 'he'
+          ? 'ההודעה נשלחה בהצלחה! נחזור אליכם בהקדם.'
+          : 'Message sent successfully! We\'ll get back to you soon.';
+        status.className = 'text-center text-sm text-sage-600 mt-2';
+        form.reset();
+      } else {
+        throw new Error('Failed');
+      }
+    } catch {
+      status.classList.remove('hidden');
+      status.textContent = document.documentElement.lang === 'he'
+        ? 'שגיאה בשליחה. אנא נסו שוב.'
+        : 'Error sending message. Please try again.';
+      status.className = 'text-center text-sm text-terracotta mt-2';
+    } finally {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
+  });
+</script>

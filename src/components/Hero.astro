@@ -1,0 +1,53 @@
+---
+interface Props {
+  lang?: 'he' | 'en';
+}
+
+const { lang = 'he' } = Astro.props;
+const isHebrew = lang === 'he';
+---
+
+<section
+  class="relative min-h-screen flex items-center justify-center overflow-hidden grain"
+  style="background: linear-gradient(135deg, #F5F0E8 0%, #E8DFD0 40%, #D4C5A9 70%, #C4A35A33 100%);"
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 pb-16">
+    <div class="fade-in">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-earth-900 leading-tight mb-6 font-heebo">
+        {isHebrew ? 'מחזירים את הריבונות לנפש' : 'Restoring Sovereignty to the Soul'}
+      </h1>
+    </div>
+
+    <div class="fade-in">
+      <p class="text-lg sm:text-xl md:text-2xl text-earth-700 leading-relaxed max-w-3xl mx-auto mb-8">
+        {isHebrew
+          ? 'מרכז שיקומי-קהילתי לנפגעי פוסט-טראומה (PTSD) — המטרה של חוות קשת היא להחזיר את הכוח המרפא לאנשים שמתמודדים עם פוסט טראומה דרך מתן כלים תרפויטיים וקהילתיים זמינים ונגישים.'
+          : 'A community rehabilitation center for PTSD — Keshet Ranch restores healing power to those dealing with post-trauma through accessible therapeutic and community tools.'}
+      </p>
+    </div>
+
+    <div class="fade-in">
+      <blockquote class="max-w-2xl mx-auto border-r-4 border-terracotta pr-6 text-right mb-12">
+        <p class="text-base sm:text-lg text-earth-700 italic leading-relaxed font-heebo">
+          {isHebrew
+            ? '"הנשימה היא התרופה שתמיד נמצאת ברשותנו. המטרה שלנו היא ללמד כיצד להשתמש בה ובכלים נוספים שלרשותנו כדי לחזור הביתה, אל עצמנו."'
+            : '"Breath is the medicine always in our possession. Our goal is to teach how to use it — and other tools within our reach — to come back home, to ourselves."'}
+        </p>
+      </blockquote>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="fade-in">
+      <a
+        href={isHebrew ? '#challenge' : '#about'}
+        class="inline-flex flex-col items-center text-earth-500 hover:text-terracotta transition-colors"
+        aria-label={isHebrew ? 'גלול למטה' : 'Scroll down'}
+      >
+        <span class="text-sm mb-2">{isHebrew ? 'גלול למטה' : 'Learn more'}</span>
+        <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
