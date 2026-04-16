@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Hero from '../../components/Hero.astro';
 import Impact from '../../components/Impact.astro';
+import FAQ from '../../components/FAQ.astro';
 import ContactForm from '../../components/ContactForm.astro';
 import DonateButton from '../../components/DonateButton.astro';
 import Footer from '../../components/Footer.astro';
@@ -11,8 +12,8 @@ const donateUrl = '#'; // Replace with external donation platform URL
 ---
 
 <Layout
-  title="Keshet Ranch — Restoring Sovereignty to the Soul"
-  description="A community rehabilitation center for post-traumatic soldiers in Israel. Support healing through breath, community, and nature."
+  title="Keshet Ranch — PTSD Rehabilitation for Israeli Veterans"
+  description="Keshet Ranch is a community rehabilitation center for post-traumatic soldiers in Israel. Our unique protocol combines therapeutic breathing, HeartMath biofeedback, nature, and community healing. 90% report improvement within one month."
   lang="en"
   dir="ltr"
 >
@@ -84,6 +85,7 @@ const donateUrl = '#'; // Replace with external donation platform URL
       </div>
     </section>
 
+    <FAQ lang="en" />
     <ContactForm lang="en" />
   </main>
   <Footer lang="en" donateUrl={donateUrl} />

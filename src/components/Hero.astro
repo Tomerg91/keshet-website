@@ -36,6 +36,22 @@ const isHebrew = lang === 'he';
       </blockquote>
     </div>
 
+    <!-- Primary CTAs -->
+    <div class="fade-in flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+      <a
+        href="#contact"
+        class="inline-block bg-terracotta text-white font-bold text-lg px-8 py-4 rounded-full hover:bg-terracotta/90 hover:scale-105 transition-all shadow-lg shadow-terracotta/20"
+      >
+        {isHebrew ? 'הצטרפו לתוכנית' : 'Join the Program'}
+      </a>
+      <a
+        href={isHebrew ? '#protocol' : '#about'}
+        class="inline-block border-2 border-earth-900 text-earth-900 font-semibold text-lg px-8 py-4 rounded-full hover:bg-earth-900 hover:text-white transition-all"
+      >
+        {isHebrew ? 'גלו את הפרוטוקול' : 'Discover Our Approach'}
+      </a>
+    </div>
+
     <!-- Scroll indicator -->
     <div class="fade-in">
       <a
@@ -43,7 +59,6 @@ const isHebrew = lang === 'he';
         class="inline-flex flex-col items-center text-earth-500 hover:text-terracotta transition-colors"
         aria-label={isHebrew ? 'גלול למטה' : 'Scroll down'}
       >
-        <span class="text-sm mb-2">{isHebrew ? 'גלול למטה' : 'Learn more'}</span>
         <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>

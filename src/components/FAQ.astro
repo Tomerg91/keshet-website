@@ -1,0 +1,102 @@
+---
+interface Props {
+  lang?: 'he' | 'en';
+}
+
+const { lang = 'he' } = Astro.props;
+const isHebrew = lang === 'he';
+
+const faqs = isHebrew
+  ? [
+      {
+        question: 'מהי חוות קשת?',
+        answer: 'חוות קשת היא מרכז שיקומי-קהילתי לנפגעי פוסט-טראומה (PTSD) בישראל. המרכז מציע תוכנית שיקום ייחודית בת 21 יום המשלבת נשימה תרפויטית, טכנולוגיית HeartMath, טבע ובעלי חיים, וקהילה תומכת.',
+      },
+      {
+        question: 'למי מיועדת התוכנית?',
+        answer: 'התוכנית מיועדת ללוחמים ולוחמות שעברו טראומה, כולל נפגעי קרב, נפגעי אירועי טרור, ומי שמתמודדים עם פוסט-טראומה (PTSD). התוכנית פתוחה לכל מי שזקוק לעזרה בהתמודדות עם טראומה.',
+      },
+      {
+        question: 'מהו פרוטוקול קשת?',
+        answer: 'פרוטוקול קשת הוא שיטת שיקום ייחודית בת ארבעה שלבים: שחרור הלופ הסימפטטי (יציאה ממצב לחימה-בריחה), מעבר לפארה-סימפטטי (טכניקות נשימה), טכנולוגיית HeartMath (ביו-פידבק בזמן אמת), ומפגש עם הטבע ובעלי חיים.',
+      },
+      {
+        question: 'מהם שיעורי ההצלחה של התוכנית?',
+        answer: '90% מהמשתתפים מדווחים שהם מסוגלים לווסת חרדה באופן עצמאי תוך חודש אחד. החווה מארחת 96 משתתפים רזידנטיאליים בשנה ומעל 6,750 משתתפים בסדנאות וקליניקות.',
+      },
+      {
+        question: 'איך אפשר לתרום או לתמוך?',
+        answer: 'ניתן לתרום דרך האתר שלנו, להתנדב בחווה, או ליצור שיתוף פעולה. צרו קשר דרך הטופס באתר או במייל info@keshetranch.com.',
+      },
+    ]
+  : [
+      {
+        question: 'What is Keshet Ranch?',
+        answer: 'Keshet Ranch is a community rehabilitation center for post-traumatic soldiers (PTSD) in Israel. The center offers a unique 21-day residential rehabilitation program combining therapeutic breathing, HeartMath biofeedback technology, nature and animal therapy, and a supportive community.',
+      },
+      {
+        question: 'Who is the program for?',
+        answer: 'The program is designed for combat veterans and individuals dealing with post-trauma (PTSD), including those affected by combat, terrorist attacks, and the aftermath of October 7th. The program is open to anyone struggling with trauma who needs support.',
+      },
+      {
+        question: 'What is the Keshet Protocol?',
+        answer: 'The Keshet Protocol is a unique four-stage rehabilitation method: Sympathetic Loop Release (exiting fight-or-flight mode), Parasympathetic Activation (therapeutic breathing techniques), HeartMath Biofeedback (real-time nervous system monitoring), and Nature & Animal Therapy (healing through connection with nature and animals).',
+      },
+      {
+        question: 'What are the program success rates?',
+        answer: '90% of participants report being able to self-regulate anxiety within one month. The ranch hosts 96 residential participants annually and over 6,750 participants in workshops and clinics each year.',
+      },
+      {
+        question: 'How can I donate or support Keshet Ranch?',
+        answer: 'You can donate through our website, volunteer at the ranch, or explore partnership opportunities. Contact us through the form on our website or email info@keshetranch.com.',
+      },
+    ];
+
+// FAQPage JSON-LD schema
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((faq) => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer,
+    },
+  })),
+};
+---
+
+<section id="faq" class="relative py-16 sm:py-24 bg-sand grain">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="fade-in text-center mb-10 sm:mb-12">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-earth-900 mb-4 font-heebo">
+        {isHebrew ? 'שאלות נפוצות' : 'Frequently Asked Questions'}
+      </h2>
+    </div>
+
+    <div class="fade-in space-y-4">
+      {faqs.map((faq) => (
+        <details class="group bg-white rounded-xl shadow-sm border border-earth-200/50">
+          <summary class="flex items-center justify-between cursor-pointer px-6 py-5 text-earth-900 font-semibold text-lg hover:text-terracotta transition-colors">
+            <span>{faq.question}</span>
+            <svg
+              class="w-5 h-5 text-earth-400 group-open:rotate-180 transition-transform flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-earth-700 leading-relaxed">
+            {faq.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+
+  <!-- FAQPage structured data for rich results and AI search -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</section>

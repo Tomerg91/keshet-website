@@ -6,14 +6,63 @@ interface Props {
   description?: string;
   lang?: 'he' | 'en';
   dir?: 'rtl' | 'ltr';
+  ogImage?: string;
 }
 
 const {
   title,
-  description = 'חוות קשת - מרכז שיקומי-קהילתי לנפגעי פוסט-טראומה',
+  description = 'חוות קשת - מרכז שיקומי-קהילתי לנפגעי פוסט-טראומה. שיקום לוחמים דרך נשימה, קהילה וטבע.',
   lang = 'he',
   dir = 'rtl',
+  ogImage = '/og-image.png',
 } = Astro.props;
+
+const siteUrl = 'https://keshetranch.com';
+const currentPath = Astro.url.pathname;
+const canonicalUrl = `${siteUrl}${currentPath}`;
+
+// Bilingual hreflang mapping
+const hePath = currentPath.startsWith('/en') ? currentPath.replace(/^\/en/, '') || '/' : currentPath;
+const enPath = currentPath.startsWith('/en') ? currentPath : `/en${currentPath === '/' ? '' : currentPath}`;
+
+// JSON-LD structured data
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Organization", "NGO"],
+      "@id": `${siteUrl}/#organization`,
+      "name": lang === 'he' ? "חוות קשת" : "Keshet Ranch",
+      "url": siteUrl,
+      "logo": `${siteUrl}/favicon.svg`,
+      "description": lang === 'he'
+        ? "מרכז שיקומי-קהילתי לנפגעי פוסט-טראומה. שיקום לוחמים דרך נשימה, קהילה וטבע."
+        : "A community rehabilitation center for post-traumatic soldiers in Israel. Healing through breath, community, and nature.",
+      "founder": {
+        "@type": "Person",
+        "name": lang === 'he' ? "גיא צ'נדלר" : "Guy Chandler"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Israel"
+      },
+      "knowsAbout": ["PTSD rehabilitation", "post-trauma healing", "therapeutic breathing", "HeartMath biofeedback", "community rehabilitation"],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "info@keshetranch.com",
+        "contactType": "general"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      "url": siteUrl,
+      "name": lang === 'he' ? "חוות קשת" : "Keshet Ranch",
+      "publisher": { "@id": `${siteUrl}/#organization` },
+      "inLanguage": ["he", "en"]
+    }
+  ]
+};
 ---
 
 <!doctype html>
@@ -23,6 +72,31 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Canonical & Hreflang -->
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="he" href={`${siteUrl}${hePath}`} />
+    <link rel="alternate" hreflang="en" href={`${siteUrl}${enPath}`} />
+    <link rel="alternate" hreflang="x-default" href={siteUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+    <meta property="og:locale" content={lang === 'he' ? 'he_IL' : 'en_US'} />
+    <meta property="og:site_name" content={lang === 'he' ? 'חוות קשת' : 'Keshet Ranch'} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

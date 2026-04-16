@@ -145,12 +145,18 @@ const isHebrew = lang === 'he';
 
       <button
         type="submit"
-        class="w-full bg-earth-900 text-white font-semibold py-3.5 rounded-xl hover:bg-earth-700 transition-colors"
+        class="w-full bg-earth-900 text-white font-semibold py-3.5 rounded-xl hover:bg-earth-700 focus:outline-none focus:ring-2 focus:ring-terracotta/50 focus:ring-offset-2 transition-colors"
       >
-        {isHebrew ? 'שליחה' : 'Send Message'}
+        {isHebrew ? 'שלחו פנייה — נחזור אליכם תוך 48 שעות' : 'Send Inquiry — We Respond Within 48 Hours'}
       </button>
 
-      <div id="form-status" class="text-center text-sm hidden"></div>
+      <p class="text-center text-xs text-earth-500">
+        {isHebrew
+          ? 'הפרטים שלכם מאובטחים ולא ישותפו עם גורם שלישי.'
+          : 'Your information is secure and will never be shared with third parties.'}
+      </p>
+
+      <div id="form-status" class="text-center text-sm hidden" role="alert"></div>
     </form>
   </div>
 </section>
